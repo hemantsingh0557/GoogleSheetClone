@@ -4,27 +4,9 @@ import { useRouter } from "next/navigation";
 export default function Login() {
     const router = useRouter();
 
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-        const password = (form.elements.namedItem("password") as HTMLInputElement).value;
-
-        // Get stored users from local storage
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
-
-        // Find user
-        const user = users.find((u: { email: string; password: string }) => u.email === email);
-
-        if (!user) {
-            alert("Email not registered. Please register first.");
-        } else if (user.password !== password) {
-            alert("Incorrect password.");
-        } else {
-            localStorage.setItem("isAuthenticated", "true");
-            localStorage.setItem("currentUser", email);
-            router.push("/main");
-        }
+    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Prevent form refresh
+        router.push("/sheetDashboard"); // Redirect to main page
     };
 
     return (
